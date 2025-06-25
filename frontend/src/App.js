@@ -46,12 +46,12 @@ function App() {
 
         {/* 🌐 Public Routes */}
         <Route path="/login-ui" element={<LoginUI />} />
-        <Route path="/register-ui" element={<RegisterUI />} />
+        <Route path="/register" element={<RegisterUI />} /> {/* ✅ Updated here */}
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* 📧 Email Verification Routes */}
         <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
-       
+        <Route path="/verify-result" element={<VerifyResultPage />} />
 
         {/* 📌 Services */}
         <Route path="/services/airport" element={<AirportPage />} />
