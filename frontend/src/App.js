@@ -46,7 +46,7 @@ function App() {
 
         {/* 🌐 Public Routes */}
         <Route path="/login-ui" element={<LoginUI />} />
-        <Route path="/register" element={<RegisterUI />} />
+        <Route path="/register-ui" element={<RegisterUI />} />
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* 📧 Email Verification Routes */}
