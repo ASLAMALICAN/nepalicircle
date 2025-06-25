@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 export default function LoginUI() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
-  const [isLogin, setIsLogin] = useState(true); // default to Login mode
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,34 +14,46 @@ export default function LoginUI() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (isLogin) {
-      // 🔒 Simulate login logic
-      if (form.email === 'test@example.com' && form.password === '123456') {
-        localStorage.setItem('token', 'mock-login-token');
-        navigate('/');
-      } else {
-        alert('Login failed. Try test@example.com / 123456');
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed');
       }
-    } else {
-      // ✍️ Simulate registration logic
-      localStorage.setItem('token', 'mock-register-token');
+
+      // Save token and user info
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('googleUser', JSON.stringify(data.user));
+
       navigate('/');
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     localStorage.setItem('token', credentialResponse.credential);
+    localStorage.setItem('googleUser', JSON.stringify(decoded));
     navigate('/');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white p-6 rounded shadow max-w-md w-full space-y-6">
-        <h2 className="text-2xl font-bold text-center">
-          {isLogin ? 'Login to Your Account' : 'Register a New Account'}
-        </h2>
+        <h2 className="text-2xl font-bold text-center">Login to Your Account</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -65,9 +77,10 @@ export default function LoginUI() {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
           >
-            {isLogin ? 'Login' : 'Register'}
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
@@ -75,25 +88,12 @@ export default function LoginUI() {
 
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
-          onError={() => console.log('Google Login Failed')}
+          onError={() => alert('Google Login Failed')}
         />
 
         <div className="text-sm text-center text-gray-600 mt-4">
-          {isLogin ? (
-            <>
-              Don't have an account?{' '}
-              <button className="text-blue-600 underline" onClick={() => setIsLogin(false)}>
-                Register
-              </button>
-            </>
-          ) : (
-            <>
-              Already have an account?{' '}
-              <button className="text-blue-600 underline" onClick={() => setIsLogin(true)}>
-                Login
-              </button>
-            </>
-          )}
+          Don't have an account?{' '}
+          <a href="/register" className="text-blue-600 underline">Register</a>
         </div>
       </div>
     </div>

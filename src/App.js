@@ -1,14 +1,15 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LoginUI from './pages/LoginUI';
-import Register from './pages/Register';
+import RegisterUI from './pages/RegisterUI';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import ResetPassword from './pages/Reset-Password';
+import VerifyEmailPage from './pages/VerifyEmailPage';
+import VerifyResultPage from './pages/VerifyResultPage'; // NEW: for success/error messages
 
-// Services
+// Service Pages
 import AirportPage from './pages/services/AirportPage';
 import HousingPage from './pages/services/HousingPage';
 import SinBankPage from './pages/services/SinBankPage';
@@ -24,7 +25,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* ✅ Protect root and dashboard */}
+
+        {/* ✅ Protected Routes */}
         <Route
           path="/"
           element={
@@ -42,12 +44,16 @@ function App() {
           }
         />
 
-        {/* Public routes */}
+        {/* 🌐 Public Routes */}
         <Route path="/login-ui" element={<LoginUI />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register-ui" element={<RegisterUI />} />
         <Route path="/reset-password" element={<ResetPassword />} />
 
-        {/* Services */}
+        {/* 📧 Email Verification Routes */}
+        <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
+       
+
+        {/* 📌 Services */}
         <Route path="/services/airport" element={<AirportPage />} />
         <Route path="/services/housing" element={<HousingPage />} />
         <Route path="/services/sin-bank" element={<SinBankPage />} />
@@ -58,6 +64,7 @@ function App() {
         <Route path="/services/directory" element={<DirectoryPage />} />
         <Route path="/services/legal" element={<LegalPage />} />
         <Route path="/services/new-to-canada" element={<NewCanada />} />
+        
       </Routes>
     </Router>
   );
