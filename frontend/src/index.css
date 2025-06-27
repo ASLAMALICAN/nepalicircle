@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide horizontal scrollbar visually but allow scrolling */
+.no-scrollbar {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome/Safari */
+}
+
+/* Subtle gradient scroll fade (left/right edge hints) */
+.before-after-fade {
+  position: relative;
+}
+.before-after-fade::before,
+.before-after-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+  z-index: 5;
+}
+.before-after-fade::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+.before-after-fade::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
