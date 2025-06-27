@@ -20,7 +20,7 @@ const AuthPage = () => {
     const decoded = jwtDecode(credentialResponse.credential);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/google', {
+      const res = await axios.post('https://nepalicircle-backend.onrender.com/api/auth/google', {
         name: decoded.name,
         email: decoded.email,
         picture: decoded.picture,

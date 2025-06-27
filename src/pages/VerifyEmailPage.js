@@ -9,7 +9,7 @@ const VerifyEmailPage = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/auth/verify-email/${token}`);
+        const res = await axios.get(`https://nepalicircle-backend.onrender.com/api/auth/verify-email/${token}`);
         setStatus(res.data.status);
       } catch (err) {
         if (err.response && err.response.data && err.response.data.status) {

@@ -27,7 +27,7 @@ const RegisterUI = () => {
     try {
       const payload = { ...form };
       delete payload.confirmPassword;
-      await axios.post('http://localhost:5000/api/auth/register', payload);
+      await axios.post('https://nepalicircle-backend.onrender.com/api/auth/register', payload);
       alert('✅ Registration successful! Please verify your email.');
       navigate('/login-ui');
     } catch (err) {
