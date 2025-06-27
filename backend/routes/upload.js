@@ -57,7 +57,7 @@ router.post('/profile-pic/:userId', upload.single('profilePic'), async (req, res
     console.log(`🧑 User ID: ${userId}`);
     console.log(`📸 New file: ${req.file.filename}`);
 
-    const newImageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const newImageUrl = `https://nepalicircle-backend.onrender.com/uploads/${req.file.filename}`;
 
     const user = await User.findById(userId);
     if (!user) {

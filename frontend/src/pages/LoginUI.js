@@ -17,7 +17,11 @@ export default function LoginUI() {
     setLoading(true);
 
     try {
+<<<<<<< HEAD
+      const response = await fetch('https://connectingnepali.onrender.com/api/auth/login', {
+=======
       const response = await fetch('http://localhost:5000/api/auth/login', {
+>>>>>>> df7abcf3 (new file added)
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

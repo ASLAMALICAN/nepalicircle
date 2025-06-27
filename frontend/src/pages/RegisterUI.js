@@ -27,7 +27,11 @@ const RegisterUI = () => {
     try {
       const payload = { ...form };
       delete payload.confirmPassword;
+<<<<<<< HEAD
+      await axios.post('https://connectingnepali.onrender.com/api/auth/register', payload);
+=======
       await axios.post('http://localhost:5000/api/auth/register', payload);
+>>>>>>> df7abcf3 (new file added)
       alert('✅ Registration successful! Please verify your email.');
       navigate('/login-ui');
     } catch (err) {

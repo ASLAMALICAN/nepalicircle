@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const User = require('../models/User');
 
 // ✅ Constants
-const CLIENT_URL = 'http://localhost:3000'; // Change this for production
+const CLIENT_URL = 'https://nepalicircle-backend.onrender.com'; // Change this for production
 
 // ✅ Generate referral code
 const generateReferralCode = () => {
